@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+
+    <title>Contact Directory</title>
+
+    <link href="css/index_styles.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <!-- <nav class="navbar navbar-dark bg-mynav">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Contact Directory</a>
+      </div>
+    </nav> -->
+
+    <div class="header_wrapper">
+      <div class="toolbar" role="banner">
+        <div class="brand_header">
+          <!-- <span class="business_name">Seafood Shack</span> -->
+          <div class="business_name">Contact Directory</div>
+          
+          <!-- <img class="icon_utensils" width="20" src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tISBGb250IEF3ZXNvbWUgUHJvIDYuNC4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlIChDb21tZXJjaWFsIExpY2Vuc2UpIENvcHlyaWdodCAyMDIzIEZvbnRpY29ucywgSW5jLiAtLT48cGF0aCBkPSJNNDE2IDBDNDAwIDAgMjg4IDMyIDI4OCAxNzZWMjg4YzAgMzUuMyAyOC43IDY0IDY0IDY0aDMyVjQ4MGMwIDE3LjcgMTQuMyAzMiAzMiAzMnMzMi0xNC4zIDMyLTMyVjM1MiAyNDAgMzJjMC0xNy43LTE0LjMtMzItMzItMzJ6TTY0IDE2QzY0IDcuOCA1Ny45IDEgNDkuNyAuMVMzNC4yIDQuNiAzMi40IDEyLjVMMi4xIDE0OC44Qy43IDE1NS4xIDAgMTYxLjUgMCAxNjcuOWMwIDQ1LjkgMzUuMSA4My42IDgwIDg3LjdWNDgwYzAgMTcuNyAxNC4zIDMyIDMyIDMyczMyLTE0LjMgMzItMzJWMjU1LjZjNDQuOS00LjEgODAtNDEuOCA4MC04Ny43YzAtNi40LS43LTEyLjgtMi4xLTE5LjFMMTkxLjYgMTIuNWMtMS44LTgtOS4zLTEzLjMtMTcuNC0xMi40UzE2MCA3LjggMTYwIDE2VjE1MC4yYzAgNS40LTQuNCA5LjgtOS44IDkuOGMtNS4xIDAtOS4zLTMuOS05LjgtOUwxMjcuOSAxNC42QzEyNy4yIDYuMyAxMjAuMyAwIDExMiAwcy0xNS4yIDYuMy0xNS45IDE0LjZMODMuNyAxNTFjLS41IDUuMS00LjcgOS05LjggOWMtNS40IDAtOS44LTQuNC05LjgtOS44VjE2em00OC4zIDE1MmwtLjMgMC0uMyAwIC4zLS43IC4zIC43eiIvPjwvc3ZnPg=='/> -->    
+          <div class="business_address">INF656GVA St, Fort Hays, KS </div>
+        </div>
+          
+        <div class="nav_header">
+          <div class="nav_header_label">Contacts</div>
+          <div class="new_contact_button_container">
+            <button type="button" class="button" id="new_contact_button">New Contact</button>
+          </div>
+        </div>
+        <div class="static_thead">
+          <!-- <span class="static_thead_span_id">Id</span> -->
+          <div class="static_thead_div_id">Id</div>
+          <div class="static_thead_div_name">Name</div>
+          <div class="static_thead_div_phone">Phone</div>
+          <div class="static_thead_div_email">Email</div>
+          <div class="static_thead_div_region">Region</div>
+          <!-- <span class="static_thead_span_none"></span> -->
+        </div>   
+      </div>
+    </div>
+    <div class="top_placeholder"></div>
+
+    <div class="table_container">      
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Email</th>
+              <th scope="col">Region</th>
+              <!-- <th scope="col">Action</th> -->
+            </tr>
+          </thead>
+          <tbody id="mytable">
+            <tr>
+              <th scope="row" colspan="5">Loading...</th>
+            </tr>
+          </tbody>
+        </table>
+      <div>
+        <dialog class="dialog_container" id="new_dialog">
+          <form name="new_dialog_form" id="new_dialog_form">
+            <div>
+              <span>
+                <!-- <label>Id:</label> -->
+                <input class="new_input" id="new_id" name="id" type="hidden">
+              </span>
+              <span class="new_form_field">
+                <label class="new_label">Name:</label>
+                <input class="new_input" id="new_name" name="name" type="text" autofocus>
+              </span>
+              <span class="new_form_field">
+                <label>Phone:</label>
+                <input class="new_input" id="new_phone" name="phone" type="tel">
+              </span>
+              <span class="new_form_field">
+                <label>Email:</label>
+                <input class="new_input" id="new_email" name="email" type="email">
+              </span>
+              <span class="new_form_field">
+                <label>Region:</label>
+                <input class="new_input" id="new_region" name="region" type="text">
+              </span>
+            </div>
+            <div class="new_buttons_container">
+              <span>
+                <button class="new_modal_button" id="new_save_button">Submit</button>
+              </span>
+              <span>
+                <button class="new_modal_button" id="new_cancel_button">Cancel</button>
+              </span>              
+            </div>
+          </form>
+        </dialog>
+      </div>
+    </div>
+    <div class="footer_wrapper">
+      <!-- <footer class="app_footer"> -->
+      <footer class="app_footer">
+        <ul>
+          <li>About</li>
+          <li>Contact</li>
+          <!-- <li>Coupons</li> -->
+          <li>Mission</li>
+        </ul>    
+      </footer>
+      <div class="follow"></div>
+    </div>
+    <script src="js/index.js"></script>    
+  </body>
+</html>

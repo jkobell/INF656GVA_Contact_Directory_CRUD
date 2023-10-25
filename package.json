@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "name": "inf656gva_contact_directory_crud",
+  "version": "1.0.0",
+  "description": "Node.js Express server - CRUD web client - JSON file db",
+  "main": "main.js",  
+  "scripts": {
+    "root_main": "node main.js"
+  },
+  "keywords": [],
+  "author": "James Kobell",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
