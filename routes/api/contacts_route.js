@@ -1,5 +1,5 @@
 import express from 'express';
-import { body, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import { getContacts, createNewContact, updateContact } from '../../controllers/contactController.js';
 import { newContactValidator, updateContactValidator } from '../../validation/validator.js';
 export { contacts_router };
