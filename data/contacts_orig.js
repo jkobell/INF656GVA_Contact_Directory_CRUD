@@ -1,3 +1,4 @@
+//archive for seed if needed
 export { contacts_json };
 
 var contacts_json = [

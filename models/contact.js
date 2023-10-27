@@ -1,5 +1,4 @@
 import * as fs from 'node:fs';
-//import { contacts_json } from "../data/contacts_orig.js"; 
 export { Contact, ContactsMap, updateContactsJson };
 
 const Contact = {"id":"", "name":"", "phone":"", "email":"", "region":""};
@@ -32,7 +31,7 @@ function ReadContactsJson() {
     }
     catch (error) {
         console.log('Read json file failed.', error);
-        //Write_log_entry(error);
+        //Write_log_entry(error); TODO
     } 
 }
 
@@ -44,7 +43,5 @@ function writeJsonFile() {
         }
     });
 }
-
-//writeJsonFile();
 
 

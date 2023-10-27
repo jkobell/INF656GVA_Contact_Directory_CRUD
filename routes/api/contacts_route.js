@@ -1,21 +1,31 @@
 import express from 'express';
-import { getContacts, createNewContact } from '../../controllers/contactController.js';
+import { body, validationResult } from 'express-validator';
+import { getContacts, createNewContact, updateContact } from '../../controllers/contactController.js';
+import { newContactValidator, updateContactValidator } from '../../validation/validator.js';
 export { contacts_router };
 
-const contacts_router = express();
+const contacts_router = express.Router()
 
-contacts_router
-    .route('/')
-    .get(getContacts)
-    .post(createNewContact);
+contacts_router.get('/contacts', (req, res) => {
+  getContacts(req, res);
+});
 
-/* contacts_router
-  .route("/")
-  .get(getContacts)
-  .post(createNewContact)
-  .put(updateContact)
-  .delete(deleteContact); */
+contacts_router.post('/contacts',
+  newContactValidator, //validator middleware post
+  (req, res, next) => {
+    const result_errors = validationResult(req).array();
+    if (result_errors && result_errors.length > 0) {
+      return res.status(400).json(result_errors);
+    }
+    createNewContact(req, res);
+});
 
-//router.route("/:id").get(getContact);
-
-
+contacts_router.put('/contacts',
+  updateContactValidator, //validator middleware for put
+  (req, res, next) => {
+    const result_errors = validationResult(req).array();
+    if (result_errors && result_errors.length > 0) {
+      return res.status(400).json(result_errors);
+    }
+    updateContact(req, res);
+});

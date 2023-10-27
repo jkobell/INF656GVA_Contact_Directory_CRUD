@@ -55,7 +55,7 @@ thead tr:nth-child(1) {
   box-shadow: 8px 8px 8px rgb(85, 85, 85);
 }
 
-.new_form_field {
+.form_field {
   display: flex;
   flex-direction: column;
   padding: .8em .5em;    
@@ -65,19 +65,19 @@ label {
   font-weight: 600;
 }
 
-.new_input {
+.new_input, .edit_input {
   border-radius: .2em;
   font-size: 1.5rem;
   padding: .1em .1em;
 }
 
-.new_buttons_container {
+.buttons_container {
   display: flex;
   justify-content: space-around;
   padding: 1em .5em;   
 }
 
-.new_modal_button {
+.modal_button {
   background-color: rgb(179, 217, 254);
   font-size: .9rem;
   min-width: 8em;
@@ -85,7 +85,7 @@ label {
   border-radius: .3em; 
 }
 
-.new_modal_button:hover {
+.modal_button:hover {
   background-color: rgb(19, 106, 194);
   color: white;
 }
