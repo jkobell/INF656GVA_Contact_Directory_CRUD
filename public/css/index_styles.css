@@ -90,6 +90,23 @@ label {
   color: white;
 }
 
+.edit_contact_button, .delete_contact_button {
+  background-color: rgb(179, 217, 254);
+  font-size: .7rem;
+  min-width: 6em;
+  padding: .5em .7em;    
+  border-radius: .3em; 
+}
+
+.edit_contact_button {
+  margin-right: 2em;
+}
+
+.edit_contact_button:hover, .delete_contact_button:hover {
+  background-color: rgb(19, 106, 194);
+  color: white;
+}
+
 .header_wrapper {
   display: flex;
   flex-direction: column;

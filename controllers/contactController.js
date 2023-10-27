@@ -1,5 +1,5 @@
 import { Contact, ContactsMap, updateContactsJson } from "../models/contact.js";
-export { getContacts, createNewContact, updateContact, updateContactsJson };
+export { getContacts, createNewContact, updateContact, deleteContact, updateContactsJson };
 
 const getContacts = async (req, res) => {
     const contacts_map = ContactsMap;
@@ -39,6 +39,27 @@ const getContacts = async (req, res) => {
     let contact_obj = new Object(Contact);
     contact_obj = req.body;
     ContactsMap.set(contact_obj.id, contact_obj);
+
+    const contacts_map_updated = ContactsMap;
+    updateContactsJson(contacts_map_updated);
+
+    res.status(200);
+    return res.send();
+  };
+
+  const deleteContact = async (req, res) => {
+    if (!Object.keys(req.body).length === 1 ) {
+      return res.status(400).send("message: Contact did not delete.");
+    }
+    
+    let contact_id = req.body.id;
+    if (contact_id) {
+      ContactsMap.delete(contact_id);
+    }
+    //ContactsMap.delete(contact_id);
+    /* let contact_obj = new Object(Contact);
+    contact_obj = req.body; */
+    //ContactsMap.set(contact_obj.id, contact_obj);
 
     const contacts_map_updated = ContactsMap;
     updateContactsJson(contacts_map_updated);

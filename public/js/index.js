@@ -4,6 +4,8 @@ let new_dialog = null;
 let new_contact_form = null;
 let edit_dialog = null;
 let edit_contact_form = null;
+let delete_dialog = null;
+let id_obj = null;
 
 //Get all api call
 async function getAll() {
@@ -97,6 +99,46 @@ async function updateContact(contact) {
     });   
 }
 
+async function deleteContact(id) {
+    await fetch(contacts_api_url, {
+        method: "DELETE",
+        mode: "same-origin",
+        cache: "no-cache",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify(id)
+    }).then((response) => {
+        if (response.status === 400) {
+            return response.text().then((text) => {
+                let json_errs = JSON.parse(text);
+                let err_message = '\n';
+                if (json_errs && json_errs.length > 0) {
+                    json_errs.forEach((json_err) => {
+                        err_message += `${json_err.msg}\n`; //parse out only validation fail messages
+                    });
+                }
+                throw Error(err_message);            
+            });
+        }
+        console.log('DELETE response status: ', response.status);
+        refreshTable();                
+    }).then(() => {
+        window.document.dispatchEvent(new Event("DOMContentLoaded", {
+            bubbles: true,
+            cancelable: true
+        }));
+    }).then(() => {
+        window.dispatchEvent(new Event("load", {
+            bubbles: true,
+            cancelable: true
+        }));
+    }).catch((err) => {
+        showErrors(`Delete contact failed.\n----Details:----\n${String(err)}`);
+    });    
+}
+
 //populate table, then add all event listeners
 //remove current anonymous callback functions with clone node 
 //  before re-adding event listeners when refresh view 
@@ -107,6 +149,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }).then(() => {
         new_dialog = document.querySelector("dialog[id='new_dialog']");
         edit_dialog = document.querySelector("dialog[id='edit_dialog']");
+        delete_dialog = document.querySelector("dialog[id='delete_dialog']");
 
         const new_contact_form_promise = new Promise((resolve) => {
             new_contact_form = document.querySelector("form[id='new_dialog_form']");
@@ -223,6 +266,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }, false);
             }
         });
+
+        const delete_ok_button_promise = new Promise((resolve) => {
+            const delete_ok_button = document.querySelector("button[id='delete_ok_button']");
+            if (delete_ok_button) {
+                let delete_ok_button_clone = delete_ok_button.cloneNode(true);
+                delete_ok_button.parentNode.replaceChild(delete_ok_button_clone, delete_ok_button);
+                resolve();
+            }
+        }).then(() => {
+            const delete_ok_button = document.querySelector("button[id='delete_ok_button']");
+            if (delete_ok_button) {
+                delete_ok_button.addEventListener('click', () => { 
+                    deleteContact(id_obj);
+                    delete_dialog.close();        
+                }, false);
+            }
+        });
+
+        const delete_cancel_button_promise = new Promise((resolve) => {
+            const delete_cancel_button = document.querySelector("button[id='delete_cancel_button']");
+            if (delete_cancel_button) {
+                let delete_cancel_button_clone = delete_cancel_button.cloneNode(true);
+                delete_cancel_button.parentNode.replaceChild(delete_cancel_button_clone, delete_cancel_button);
+                resolve();
+            }
+        }).then(() => {
+            const delete_cancel_button = document.querySelector("button[id='delete_cancel_button']");
+            if (delete_cancel_button) {
+                delete_cancel_button.addEventListener('click', () => {
+                    delete_dialog.close();
+                }, false);
+            }
+        });
     });
 });
 
@@ -234,6 +310,17 @@ window.addEventListener('load', (event) => {
             edit_contact_buttons.forEach((edit_contact_button)=> {
                 edit_contact_button.addEventListener('click', (event) => {
                     openEditDialog(event);
+                });
+            })
+        }
+    }, 100);
+    const delete_button = setInterval(()=> { //wait until table dom completes
+        let delete_contact_buttons = document.querySelectorAll("button[class='delete_contact_button']");
+        if (delete_contact_buttons) {
+            clearInterval(delete_button); 
+            delete_contact_buttons.forEach((delete_contact_button)=> {
+                delete_contact_button.addEventListener('click', (event) => {
+                    createDeleteContact(event);
                 });
             })
         }
@@ -255,13 +342,13 @@ function openEditDialog(event) { //update form values capture
     edit_dialog.showModal();
 }
 
-function refreshTable() {
+function refreshTable() {//TODO paginate after 50 records. Add sort feature to columns
     getAll().then((data) => {
         if (data) {
             const data_map = new Map(Object.entries(data));
             let trHTML = '';
             data_map.forEach((value, key) => {
-                trHTML += '<tr>';
+                trHTML += '<tr data-rowid='+value.id+'>';
                 trHTML += '<td>'+value.id+'</td>';
                 trHTML += '<td>'+value.name+'</td>';
                 trHTML += '<td>'+value.phone+'</td>';
@@ -271,7 +358,7 @@ function refreshTable() {
                 trHTML += '<button type="button" class="delete_contact_button">Delete</button></td>';
                 trHTML += "</tr>";
             });
-            document.getElementById("mytable").innerHTML = trHTML;
+            document.getElementById("contact_table").innerHTML = trHTML;
         }        
     });
 }
@@ -305,6 +392,23 @@ function createUpdateContact() {
     
     updateContact(edit_inputs_data_obj)
 }
+
+function createDeleteContact(event) {
+    let table_row_element = event.currentTarget.parentNode.parentNode;
+    if (table_row_element) {
+        let row_id = table_row_element.dataset.rowid;
+        if (row_id) {
+            if (delete_dialog) {
+                let delete_dialog_message_element = delete_dialog.querySelector("h3[id='delete_dialog_message']");
+                if (delete_dialog_message_element) {
+                    delete_dialog_message_element.innerHTML = `Are you sure that you want to DELETE Id ${row_id}?`;
+                    delete_dialog.showModal();
+                    id_obj = {id:`${row_id}`};
+                }
+            }
+        }
+    }    
+}   
 
 function validate(form_type) { //validate for empty form fields
     let form = document.querySelector("form[id='"+form_type+"_dialog_form']");
