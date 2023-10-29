@@ -99,6 +99,7 @@ async function updateContact(contact) {
     });   
 }
 
+// Delete contact by Id
 async function deleteContact(id) {
     await fetch(contacts_api_url, {
         method: "DELETE",
