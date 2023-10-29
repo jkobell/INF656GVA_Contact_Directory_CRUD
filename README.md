@@ -16,6 +16,7 @@ Contact Directory allows for creating, reading, updating and deleting contacts r
 - No CDNs required.
 - Uses flex and css only for styling.
 - Content Security Policy compliant as no inline styles or inline event listeners are implemented.
+- No database required.
 
 ### Use
 - Download project into a directory.
