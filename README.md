@@ -21,8 +21,8 @@ Contact Directory allows for creating, reading, updating and deleting contacts r
 ### Use
 - Download project into a directory.
 - From a command line, navigate to project directory, run: node main.
-- Open browser, enter url localhost//:3030 for CRUD operations in UI view.
-- In browser, enter url localhost//:3030/contacts for returning all contacts from API.
+- Open browser, enter url localhost:3030 for CRUD operations in UI view.
+- In browser, enter url localhost:3030/contacts for returning all contacts from API.
 
  
 
