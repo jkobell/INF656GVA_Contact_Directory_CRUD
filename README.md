@@ -10,11 +10,11 @@ Contact Directory allows for creating, reading, updating and deleting contacts r
 - express-validator
 
 ### Features
-- CRUD operations
-- Client validation for empty form fields
-- Server validation middleware includes types, empty, sanitation
-- No CDNs required
-- Uses flex and css only for styling
+- CRUD operations.
+- Client validation for empty form fields.
+- Server validation middleware includes types, empty, sanitation.
+- No CDNs required.
+- Uses flex and css only for styling.
 - Content Security Policy compliant as no inline styles or inline event listeners are implemented.
 
 ### Use
